@@ -22,6 +22,14 @@ Data is loaded from s3 into redshift staging tables (staging_events_table, stagi
 
 Execution of SQL statements to create analytics tables and insert data into the resulting analytics tables.
 
+The scripts should be run in the following order
+
+ 1. fill dwh.cfg script with the necessary db credentials and ARN 
+ 
+ 2. Run create_tables.py to create the tables whose queries exist in sql_queries.py
+ 
+ 3. Run etl.py to load s3 data into staging_songs_table and staging_events_table, and finally insert data into tables created above
+
 Resulting tables are as follows:
 
  1. songplays(fact table) - records in event data associated with song plays i.e. records with page NextSong
