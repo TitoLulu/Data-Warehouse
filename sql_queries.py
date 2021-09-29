@@ -159,7 +159,7 @@ songplay_table_insert = ("""
             user_agent
         )
     SELECT 
-        timestamp 'epoch' + cAST(e.ts as bigint)/1000 * interval '1 second' as start_time,
+        distinct timestamp 'epoch' + cAST(e.ts as bigint)/1000 * interval '1 second' as start_time,
         e.userid as user_id,
         e.level,
         s.song_id,
@@ -183,7 +183,7 @@ user_table_insert = ("""
         level
     ) 
     SELECT 
-        userid as user_id,
+        distinct userid as user_id,
         firstname as first_name,
         lastname as last_name,
         gender,
@@ -202,7 +202,7 @@ song_table_insert = ("""
         duration
     ) 
     SELECT 
-        song_id,
+        distinct song_id,
         title,
         artist_id,
         year,
@@ -221,7 +221,7 @@ artist_table_insert = ("""
         longitude
     ) 
    SELECT
-       artist_id,
+       distinct artist_id,
        artist_name as name,
        artist_location as location,
        artist_latitude as latitude,
@@ -242,7 +242,7 @@ time_table_insert = ("""
         weekday
     )
     SELECT 
-        timestamp 'epoch' + CAST(ts as bigint)/1000 * interval '1 second' as start_time,
+        distinct timestamp 'epoch' + CAST(ts as bigint)/1000 * interval '1 second' as start_time,
         EXTRACT(hour from timestamp 'epoch' + CAST(ts as bigint)/1000 * interval '1 second') as hour,
         EXTRACT(day from timestamp 'epoch' + CAST(ts as bigint)/1000 * interval '1 second') as day,
         EXTRACT(week from timestamp 'epoch' + CAST(ts as bigint)/1000 * interval '1 second') as week,
